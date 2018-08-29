@@ -1,7 +1,7 @@
 //前、后台共用变量
 export default {
     web_name:'阳光内容管理系统',
-    web_domain:'http://103.27.4.146:3001',//访问域名
+    web_domain:'http://localhost:3001',//访问域名
     name_reg:/^[a-z\u4e00-\u9fa5]{3,10}$/i, //帐号验证
     name_txt:'3至10个英文或中文字符', //帐号规则
     pass_reg:/^(?=.*[a-z])(?=.*\d)[a-z\d]{6,12}$/i, //密码验证
@@ -23,7 +23,7 @@ export default {
     //页面权限设置 0:所有人 4:所有登录用户 3:vip用户以上 2:管理员级别 1:只有超级管理员
     page_grade:{
         changePassword:4,//修改密码（必须登录）
-        listSort:4,//分类列表（页面访问权限）
+        listSort:0,//分类列表（页面访问权限）
         updateSort:4,//添加和更新分类权限
         deleteSort:4,//删除分类权限
         batchDelSort:4,//批量删除分类权限

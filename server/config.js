@@ -2,10 +2,10 @@
 export default {
     //数据库配置
     mysqlDB : {
-		host:'localhost',
-        user: '数据库用户',
-        password:'数据库密码',
-        database: '数据库名称'
+		host:'119.29.193.74',
+        user: 'root',
+        password:'Sking123456!!',
+        database: 'school'
     },
     upPath:'dist/upFile/',//上传路径
     //token 配置

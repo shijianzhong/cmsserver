@@ -280,6 +280,8 @@ async function active(ctx) {
 //用户登录
 async function login(ctx) {
     const data = ctx.request.body;
+    console.log(11111111111111111111)
+    console.log(data);
     let msg;
     if (!common.name_reg.test(data.user_name)) {
         msg = common.name_txt;

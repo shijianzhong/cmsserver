@@ -17,7 +17,7 @@ const urls = {
 	'findPassword': {userType: 0,method:'get',url:'/:email/:code'},//激活找回密码（游客）
     'active': {userType: 0,method:'get',url:'/:name/:code'},//帐号激活（游客）
     'changePassword' : {},
-    'listSort': {},
+    'listSort': {userType: 0},
     'updateSort': {},
     'deleteSort': {},
     'batchDelSort': {},
@@ -98,10 +98,14 @@ async function verify(ctx) {
             resolve('非法请求方式：' + ctx.method);
         }
         //异步验证token
-		const userType = obj.userType;
+        const userType = obj.userType;
+        console.log(11111111122222)
+        console.log(key);
+        console.log(userType)
 		if (userType === 0) {
+       
             resolve({}); //不需要验证token
-        }
+        }else{
         jwt.verify(ctx.request.header.authorization, config.JWTs.secret, (err, decoded) => {
             if (err) {
                 resolve('token验证错误！');
@@ -113,7 +117,7 @@ async function verify(ctx) {
                 }
             }
             resolve(decoded);//把用户信息带上
-        });
+        });}
     })
 }
 

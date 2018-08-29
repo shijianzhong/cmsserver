@@ -3,7 +3,7 @@ import Koa from 'koa';
 import koa_router from "koa-router";
 import json from 'koa-json';
 import logger from 'koa-logger';
-
+const cors = require('koa2-cors')
 import path from 'path';
 import serve from 'koa-static';
 import historyApiFallback from 'koa2-history-api-fallback';
@@ -14,6 +14,19 @@ import routes_obj from './server/routes.js';
 const app = new Koa();
 const router = koa_router();
 
+app.use(cors({
+    origin: function(ctx) {
+        if (ctx.url === '/test') {
+            return false;
+        }
+        return 'http://localhost:8081';
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 app.use(koa_bodyparser());
 app.use(json());
 app.use(logger());

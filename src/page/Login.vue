@@ -215,6 +215,7 @@
                 this.$refs.loginForm.validate(valid => {
                     if (valid && !this.loading) {
                         this.loading = true;
+                        debugger
                         ajax.call(this, '/login', this.data, (data, err) => {
                             this.loading = false;
                             if (!err) {
