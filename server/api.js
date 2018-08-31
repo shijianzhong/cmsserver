@@ -492,8 +492,12 @@ async function updateArticle(ctx) {
             const [result] = await connection.execute('UPDATE `article` SET `title`=?,`description`=?,`read_type`=?,`sort_id`=?,`content`=?,`article_extend`=? where `id`=?', array);
             err = result.affectedRows === 1 ? '' :'文章修改失败';
         }else{
-            //添加文章
-            array.push(new Date().toLocaleString());//添加日期
+            //添加文章添加文章
+            // array.push(new Date().toLocaleString());//添加日期
+            let d = new Date();
+			let create_time = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+            array.push(create_time)// 添加日期
+
             array.push(user.user_type < 3 ? 1 : 0);//是否通过审核
             array.push(user.id);//用户信息
             const [result] = await connection.execute('INSERT INTO `article` (title,description,read_type,sort_id,content,article_extend,create_time,passed,user_id) VALUES (?,?,?,?,?,?,?,?,?)', array);
