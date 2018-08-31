@@ -19,7 +19,7 @@ app.use(cors({
         if (ctx.url === '/test') {
             return false;
         }
-        return 'http://localhost:8081';
+        return 'http://119.29.193.74:8081';
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,

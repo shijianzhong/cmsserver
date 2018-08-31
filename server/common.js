@@ -1,7 +1,7 @@
 //前、后台共用变量
 export default {
     web_name:'cms管理系统',
-    web_domain:'http://localhost:3001',//访问域名
+    web_domain:'http://119.29.193.74:3001',//访问域名
     name_reg:/^[a-z\u4e00-\u9fa5]{3,10}$/i, //帐号验证
     name_txt:'3至10个英文或中文字符', //帐号规则
     pass_reg:/^(?=.*[a-z])(?=.*\d)[a-z\d]{6,12}$/i, //密码验证
