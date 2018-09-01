@@ -35,6 +35,9 @@ const urls = {
     'passedArticle': {},
     'deleteArticle': {},
     'getArticleById': { userType: 4 }, //获取文章详情
+    'uploadCarouselImg': { userType: 0 },
+    "getCarouselList": { userType: 0 },
+    "deleteCarouselImg": { userType: 0 }
 };
 
 Object.getOwnPropertyNames(urls).forEach(key => {

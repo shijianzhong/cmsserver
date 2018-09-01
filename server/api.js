@@ -447,7 +447,55 @@ async function changePassword(ctx) {
         data: {}
     }
 }
+async function getCarouselList(ctx) {
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM carouselimg");
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: '',
+        data: list
+    }
+}
+async function deleteCarouselImg(ctx) {
 
+    let id = ctx.request.body.id;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("DELETE from carouselimg where id=?", [id]);
+    await connection.end();
+
+    ctx.body = {
+        success: list.affectedRows === 1,
+        message: list.affectedRows === 1 ? '' : `删除失败！`,
+        data: list
+    }
+}
+async function uploadCarouselImg(ctx) {
+    const data = ctx.request.body;
+    let err;
+    let ds = JSON.parse(data.a);
+    const connection = await mysql.createConnection(config.mysqlDB);
+    ds.forEach(async(x) => {
+        const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc) VALUES (?)', [x.imgsrc]);
+        err = result.affectedRows === 1 ? '' : '提交图片失败';
+        if (result.affectedRows === 1) {
+            ctx.body = {
+                success: !err,
+                message: err,
+                data: {}
+            }
+            return;
+        }
+    })
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+
+}
 //新添或编辑文章
 async function updateArticle(ctx) {
     const data = ctx.request.body;
@@ -856,5 +904,8 @@ export default {
     deleteUser,
     getUserById,
     upUserPic,
-    updateUser
+    updateUser,
+    uploadCarouselImg,
+    getCarouselList,
+    deleteCarouselImg
 }
