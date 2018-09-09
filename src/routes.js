@@ -9,6 +9,8 @@ import UpFileList from 'page/UpFile/list.vue'
 import userList from 'page/User/list.vue'
 import userAdd from 'page/User/add.vue'
 import uploadCarousel from 'page/Article/uploadCarousel.vue'
+import emitInfo from 'page/Article/emitInfo.vue'
+import showCases from 'page/Article/showCases.vue'
 //todo 记录
 /*
  *
@@ -112,7 +114,7 @@ export default {
         path: '/upfile',
         meta: {
             verify: true,
-            title: '上传管理',
+            title: '发布管理',
             icon: 'fa fa-upload'
         },
         component: Home,
@@ -136,6 +138,26 @@ export default {
                     icon: 'fa fa-files-o'
                 },
                 component: uploadCarousel
+            },
+            {
+                path: 'emitinfo',
+                meta: {
+                    verify: true,
+                    grade: common.page_grade.listUpFile,
+                    title: '录取信息发布',
+                    icon: 'fa fa-files-o'
+                },
+                component: emitInfo
+            },
+            {
+                path: 'showcases',
+                meta: {
+                    verify: true,
+                    grade: common.page_grade.listUpFile,
+                    title: 'showCases发布',
+                    icon: 'fa fa-files-o'
+                },
+                component: showCases
             }
         ]
 

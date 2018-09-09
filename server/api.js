@@ -447,55 +447,7 @@ async function changePassword(ctx) {
         data: {}
     }
 }
-async function getCarouselList(ctx) {
-    const connection = await mysql.createConnection(config.mysqlDB);
-    const [list] = await connection.execute("SELECT * FROM carouselimg");
-    const success = list.length === 1;
-    await connection.end();
-    ctx.body = {
-        success: true,
-        message: '',
-        data: list
-    }
-}
-async function deleteCarouselImg(ctx) {
 
-    let id = ctx.request.body.id;
-    const connection = await mysql.createConnection(config.mysqlDB);
-    const [list] = await connection.execute("DELETE from carouselimg where id=?", [id]);
-    await connection.end();
-
-    ctx.body = {
-        success: list.affectedRows === 1,
-        message: list.affectedRows === 1 ? '' : `删除失败！`,
-        data: list
-    }
-}
-async function uploadCarouselImg(ctx) {
-    const data = ctx.request.body;
-    let err;
-    let ds = JSON.parse(data.a);
-    const connection = await mysql.createConnection(config.mysqlDB);
-    ds.forEach(async(x) => {
-        const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc) VALUES (?)', [x.imgsrc]);
-        err = result.affectedRows === 1 ? '' : '提交图片失败';
-        if (result.affectedRows === 1) {
-            ctx.body = {
-                success: !err,
-                message: err,
-                data: {}
-            }
-            return;
-        }
-    })
-    await connection.end();
-    ctx.body = {
-        success: !err,
-        message: err,
-        data: {}
-    }
-
-}
 //新添或编辑文章
 async function updateArticle(ctx) {
     const data = ctx.request.body;
@@ -878,6 +830,171 @@ async function saveXML(ctx) {
         }
     }
 }
+async function getCarouselList(ctx) {
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM carouselimg");
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: '',
+        data: list
+    }
+}
+async function deleteCarouselImg(ctx) {
+
+    let id = ctx.request.body.id;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("DELETE from carouselimg where id=?", [id]);
+    await connection.end();
+
+    ctx.body = {
+        success: list.affectedRows === 1,
+        message: list.affectedRows === 1 ? '' : `删除失败！`,
+        data: list
+    }
+}
+async function uploadCarouselImg(ctx) {
+    const data = ctx.request.body;
+    let err;
+    let ds = JSON.parse(data.a);
+    const connection = await mysql.createConnection(config.mysqlDB);
+    ds.forEach(async(x) => {
+        const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc) VALUES (?)', [x.imgsrc]);
+        err = result.affectedRows === 1 ? '' : '提交图片失败';
+        if (result.affectedRows === 1) {
+            ctx.body = {
+                success: !err,
+                message: err,
+                data: {}
+            }
+            return;
+        }
+    })
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+}
+async function InsertEmitInfo(ctx) {
+    const data = ctx.request.body;
+    let err;
+    let ds = JSON.parse(data.a);
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [aaa] = await connection.execute("DELETE from emitinfo");
+    ds.forEach(async(x) => {
+
+        const [result] = await connection.execute('INSERT INTO `emitinfo` (emiteinfo) VALUES (?)', [x.info.toString()]);
+        console.log(result);
+        err = result.affectedRows === 1 ? '' : '提交录取信息失败';
+        if (result.affectedRows === 1) {
+            ctx.body = {
+                success: !err,
+                message: err,
+                data: {}
+            }
+            return;
+        }
+    })
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+}
+async function getEmitInfoList(ctx) {
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM emitinfo");
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: '',
+        data: list
+    }
+}
+async function deleteEmitInfo(ctx) {
+
+    let id = ctx.request.body.id;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("DELETE from emitinfo where id=?", [id]);
+    await connection.end();
+
+    ctx.body = {
+        success: list.affectedRows === 1,
+        message: list.affectedRows === 1 ? '' : `删除失败！`,
+        data: list
+    }
+}
+async function getCasesList(ctx) {
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM showcases");
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: '',
+        data: list
+    }
+}
+
+async function deleteShowCases(ctx) {
+
+    let id = ctx.request.body.id;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("DELETE from showcases where id=?", [id]);
+    await connection.end();
+
+    ctx.body = {
+        success: list.affectedRows === 1,
+        message: list.affectedRows === 1 ? '' : `删除失败！`,
+        data: list
+    }
+}
+async function UpdateCases(ctx) {
+    const data = ctx.request.body;
+    console.log(data);
+    let err;
+    const connection = await mysql.createConnection(config.mysqlDB);
+
+    const [result] = await connection.execute('UPDATE `showcases` set headimg=?, title = ?,content=? where id =?', [data.pic, data.title, data.content, data.id]);
+    err = result.affectedRows === 1 ? '' : '更新失败';
+    if (result.affectedRows === 1) {
+        ctx.body = {
+            success: !err,
+            message: err,
+            data: {}
+        }
+        return;
+    }
+}
+async function InsertShowCases(ctx) {
+    const data = ctx.request.body;
+    console.log(data);
+    let err;
+    const connection = await mysql.createConnection(config.mysqlDB);
+
+    const [result] = await connection.execute('INSERT INTO `showcases` (headimg,title,content) VALUES (?,?,?)', [data.pic, data.title, data.content]);
+    err = result.affectedRows === 1 ? '' : '发布失败';
+    if (result.affectedRows === 1) {
+        ctx.body = {
+            success: !err,
+            message: err,
+            data: {}
+        }
+        return;
+    }
+
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+}
 
 export default {
     saveXML,
@@ -907,5 +1024,13 @@ export default {
     updateUser,
     uploadCarouselImg,
     getCarouselList,
-    deleteCarouselImg
+    deleteCarouselImg,
+    InsertEmitInfo,
+    getEmitInfoList,
+    deleteEmitInfo,
+    getCasesList,
+    deleteShowCases,
+    InsertShowCases,
+    UpdateCases
+
 }

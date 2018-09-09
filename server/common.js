@@ -41,6 +41,13 @@ export default {
         uploadCarouselImg: 0, //上传轮播图图片
         getCarouselList: 0, //获取轮播图
         deleteCarouselImg: 0, //删除轮播图图片
+        InsertEmitInfo: 0,
+        getEmitInfoList: 0,
+        deleteEmitInfo: 0,
+        getCasesList: 0,
+        deleteShowCases: 0,
+        InsertShowCases: 0,
+        UpdateCases: 0,
     },
     sort_type: {
         'news': '新闻',
