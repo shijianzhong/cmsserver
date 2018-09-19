@@ -11,6 +11,7 @@ import userAdd from 'page/User/add.vue'
 import uploadCarousel from 'page/Article/uploadCarousel.vue'
 import emitInfo from 'page/Article/emitInfo.vue'
 import showCases from 'page/Article/showCases.vue'
+import interDynamics from 'page/Article/internationalDynamics.vue'
 //todo 记录
 /*
  *
@@ -158,6 +159,16 @@ export default {
                     icon: 'fa fa-files-o'
                 },
                 component: showCases
+            },
+            {
+                path: "interdynamics",
+                meta: {
+                    verify: true,
+                    grade: common.page_grade.listUpFile,
+                    title: '为明国际动态发布',
+                    icon: 'fa fa-files-o'
+                },
+                component: interDynamics
             }
         ]
 

@@ -987,7 +987,6 @@ async function InsertShowCases(ctx) {
         }
         return;
     }
-
     await connection.end();
     ctx.body = {
         success: !err,
@@ -995,7 +994,29 @@ async function InsertShowCases(ctx) {
         data: {}
     }
 }
+async function InsertInterDynamics(ctx) {
+    const data = ctx.request.body;
+    console.log(data);
+    let err;
+    const connection = await mysql.createConnection(config.mysqlDB);
 
+    const [result] = await connection.execute('INSERT INTO `interdynamics` (headimg,title,pbtime,pbauthor,readnums,content) VALUES (?,?,?,?,?,?)', [data.pic, data.title, data.time, data.author, 0, data.content]);
+    err = result.affectedRows === 1 ? '' : '发布失败';
+    if (result.affectedRows === 1) {
+        ctx.body = {
+            success: !err,
+            message: err,
+            data: {}
+        }
+        return;
+    }
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+}
 export default {
     saveXML,
     saveUpFile,
