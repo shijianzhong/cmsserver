@@ -48,11 +48,11 @@ module.exports = {
   data() {
     return {
       tableData: [
-        {
-          title: "王小虎",
-          imgsrc: "http://localhost:3001/upFile/1536482373259.png",
-          content: "普陀区"
-        }
+        // {
+        //   title: "王小虎",
+        //   imgsrc: "http://localhost:3001/upFile/1536482373259.png",
+        //   content: "普陀区"
+        // }
       ],
       page_grade: common.page_grade,
       grade: {

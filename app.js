@@ -19,7 +19,7 @@ app.use(cors({
         if (ctx.url === '/test') {
             return false;
         }
-        return 'http://localhost:8080';
+        return 'http://imeasy.cn';
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
