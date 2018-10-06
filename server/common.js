@@ -48,6 +48,12 @@ export default {
         deleteShowCases: 0,
         InsertShowCases: 0,
         UpdateCases: 0,
+        InsertInterDynamics: 0,
+        DeleteInterDynamics: 0,
+        UpdateInterDynamics: 0,
+        SelectInterDynamics: 0,
+        UpdateInterDynamicsReadtimes: 0,
+        InsertSignUpInfo: 0,
     },
     sort_type: {
         'news': '新闻',

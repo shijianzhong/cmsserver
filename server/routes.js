@@ -45,6 +45,12 @@ const urls = {
     "deleteShowCases": { userType: 0 },
     "InsertShowCases": { userType: 0 },
     "UpdateCases": { userType: 0 },
+    "InsertInterDynamics": { userType: 0 },
+    "DeleteInterDynamics": { userType: 0 },
+    "UpdateInterDynamics": { userType: 0 },
+    "SelectInterDynamics": { userType: 0 },
+    "UpdateInterDynamicsReadtimes": { userType: 0 },
+    "InsertSignUpInfo": { userType: 0 },
 
 };
 

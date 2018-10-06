@@ -92,10 +92,7 @@ module.exports = {
       }
     };
   },
-  //         getCasesList,
-  // deleteShowCases,
-  // InsertShowCases
-  //UpdateCases
+
   created() {},
   methods: {
     addArticle() {
