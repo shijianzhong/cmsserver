@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import common from './common'
 import nodemailer from 'nodemailer'
 import { AsyncResource } from 'async_hooks';
+import { asyncify } from '_async@2.6.1@async';
 
 //公用：获取客户端IP
 function getClientIP(ctx) {
@@ -1082,6 +1083,66 @@ async function InsertInterDynamics(ctx) {
         data: {}
     }
 }
+async function getActiveSpecialList(ctx) {
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM activespecial");
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: '',
+        data: list
+    }
+}
+async function deleteActiveSpecial(ctx) {
+    let id = ctx.request.body.id;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("DELETE from activespecial where id=?", [id]);
+    await connection.end();
+    ctx.body = {
+        success: list.affectedRows === 1,
+        message: list.affectedRows === 1 ? '' : `删除失败！`,
+        data: list
+    }
+}
+async function updateActiveSpecial(ctx) {
+    const data = ctx.request.body;
+    let err;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [result] = await connection.execute('UPDATE `activespecial` set  title = ?,content=? where id =?', [data.title, data.content, data.id]);
+    err = result.affectedRows === 1 ? '' : '更新失败';
+    if (result.affectedRows === 1) {
+        ctx.body = {
+            success: !err,
+            message: err,
+            data: {}
+        }
+        return;
+    }
+}
+async function InsertActiveSpecial(ctx) {
+    const data = ctx.request.body;
+    console.log(data);
+    let err;
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [result] = await connection.execute('INSERT INTO `activespecial` (title,content) VALUES (?,?)', [data.title, data.content]);
+    err = result.affectedRows === 1 ? '' : '发布失败';
+    if (result.affectedRows === 1) {
+        ctx.body = {
+            success: !err,
+            message: err,
+            data: {}
+        }
+        return;
+    }
+    await connection.end();
+    ctx.body = {
+        success: !err,
+        message: err,
+        data: {}
+    }
+}
+
 async function InsertSignUpInfo(ctx) {
     const data = ctx.request.body;
     let err;
@@ -1148,5 +1209,9 @@ export default {
     UpdateInterDynamics,
     SelectInterDynamics,
     UpdateInterDynamicsReadtimes,
-    InsertSignUpInfo
+    InsertSignUpInfo,
+    getActiveSpecialList,
+    deleteActiveSpecial,
+    updateActiveSpecial,
+    InsertActiveSpecial
 }

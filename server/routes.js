@@ -51,6 +51,10 @@ const urls = {
     "SelectInterDynamics": { userType: 0 },
     "UpdateInterDynamicsReadtimes": { userType: 0 },
     "InsertSignUpInfo": { userType: 0 },
+    "getActiveSpecialList": { userType: 0 },
+    "deleteActiveSpecial": { userType: 0 },
+    "updateActiveSpecial": { userType: 0 },
+    "InsertActiveSpecial": { userType: 0 },
 
 };
 

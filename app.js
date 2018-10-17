@@ -20,6 +20,7 @@ app.use(cors({
             return false;
         }
         return 'http://imeasy.cn';
+        // return 'http://localhost:8080'
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,

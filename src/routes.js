@@ -12,6 +12,7 @@ import uploadCarousel from 'page/Article/uploadCarousel.vue'
 import emitInfo from 'page/Article/emitInfo.vue'
 import showCases from 'page/Article/showCases.vue'
 import interDynamics from 'page/Article/internationalDynamics.vue'
+import activespecial from 'page/Article/activespecial.vue'
 //todo 记录
 /*
  *
@@ -169,7 +170,17 @@ export default {
                     icon: 'fa fa-files-o'
                 },
                 component: interDynamics
-            }
+            },
+            {
+                path: "activespecial",
+                meta: {
+                    verify: true,
+                    grade: common.page_grade.listUpFile,
+                    title: '活动预约内容发布',
+                    icon: 'fa fa-files-o'
+                },
+                component: activespecial
+            },
         ]
 
     }]
