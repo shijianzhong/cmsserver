@@ -6,8 +6,7 @@ import fs from "fs"
 import jwt from 'jsonwebtoken'
 import common from './common'
 import nodemailer from 'nodemailer'
-import { AsyncResource } from 'async_hooks';
-import { asyncify } from '_async@2.6.1@async';
+
 
 //公用：获取客户端IP
 function getClientIP(ctx) {
