@@ -1141,7 +1141,21 @@ async function InsertActiveSpecial(ctx) {
         data: {}
     }
 }
+async function getSignUpInfo(ctx) {
 
+    const data = ctx.request.body;
+    console.log('jjjjjjjjjjjjj')
+    const connection = await mysql.createConnection(config.mysqlDB);
+    const [list] = await connection.execute("SELECT * FROM signupinfo");
+    console.log(list);
+    const success = list.length === 1;
+    await connection.end();
+    ctx.body = {
+        success: true,
+        message: success ? '' : '无报名信息',
+        data: list
+    }
+}
 async function InsertSignUpInfo(ctx) {
     const data = ctx.request.body;
     let err;
@@ -1209,6 +1223,7 @@ export default {
     SelectInterDynamics,
     UpdateInterDynamicsReadtimes,
     InsertSignUpInfo,
+    getSignUpInfo,
     getActiveSpecialList,
     deleteActiveSpecial,
     updateActiveSpecial,

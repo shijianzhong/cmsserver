@@ -13,6 +13,7 @@ import emitInfo from 'page/Article/emitInfo.vue'
 import showCases from 'page/Article/showCases.vue'
 import interDynamics from 'page/Article/internationalDynamics.vue'
 import activespecial from 'page/Article/activespecial.vue'
+import registInfo from 'page/Article/registInfo.vue'
 //todo 记录
 /*
  *
@@ -122,6 +123,16 @@ export default {
         component: Home,
         redirect: '/upfile/list',
         children: [{
+                path: "registInfo",
+                meta: {
+                    verify: true,
+                    grade: common.page_grade.getSignUpInfo,
+                    title: '报名信息',
+                    icon: 'fa fa-files-o'
+                },
+                component: registInfo
+            },
+            {
                 path: 'list',
                 meta: {
                     verify: true,

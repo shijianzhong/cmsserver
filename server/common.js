@@ -55,6 +55,7 @@ export default {
         SelectInterDynamics: 0,
         UpdateInterDynamicsReadtimes: 0,
         InsertSignUpInfo: 0,
+        getSignUpInfo: 0,
         getActiveSpecialList: 0,
         deleteActiveSpecial: 0,
         updateActiveSpecial: 0,

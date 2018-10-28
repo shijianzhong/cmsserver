@@ -51,6 +51,7 @@ const urls = {
     "SelectInterDynamics": { userType: 0 },
     "UpdateInterDynamicsReadtimes": { userType: 0 },
     "InsertSignUpInfo": { userType: 0 },
+    "getSignUpInfo": { userType: 0 },
     "getActiveSpecialList": { userType: 0 },
     "deleteActiveSpecial": { userType: 0 },
     "updateActiveSpecial": { userType: 0 },
@@ -109,10 +110,14 @@ routes.post('/upFile', multer({ storage }).single('file'), async ctx => {
 //验证权限函数
 async function verify(ctx) {
     return new Promise((resolve, reject) => {
+        debugger
         if (ctx.url.substring(0, 5) !== '/api/') {
             resolve({}); //非后端接口请求
         }
+
         let arr = /\/api\/([a-zA-Z]+)/.exec(ctx.url);
+        console.log('ssssss');
+        console.log(arr);
         let key = arr ? arr[1] : '';
         let obj = urls[key];
         if (!urls.hasOwnProperty(key)) {
