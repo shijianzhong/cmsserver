@@ -860,8 +860,11 @@ async function uploadCarouselImg(ctx) {
     let err;
     let ds = JSON.parse(data.a);
     const connection = await mysql.createConnection(config.mysqlDB);
+    console.log('sddddddddddddsssssss');
+    console.log(ds);
     ds.forEach(async(x) => {
-        const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc) VALUES (?)', [x.imgsrc]);
+        console.log(x);
+        const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc,url,type) VALUES (?,?,?)', [x.imgsrc, x.url, x.type]);
         err = result.affectedRows === 1 ? '' : '提交图片失败';
         if (result.affectedRows === 1) {
             ctx.body = {

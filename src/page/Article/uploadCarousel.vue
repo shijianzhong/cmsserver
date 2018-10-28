@@ -1,8 +1,13 @@
 <template>
     <div class="upload-carousel">
-        <el-input v-model="data.pic"></el-input>
+        
+        
+        <el-input v-model="url" style="margin-top:10px" placeholder="点击上传按钮之前：输入该图跳转链接"></el-input>
+        <el-input v-model="type" style="margin-top:10px" placeholder="点击上传按钮之前：如果是首页的报名图请填数字1，轮播图不用填"></el-input>
+        <el-input style="margin-top:10px" v-model="data.pic"></el-input>
         <up-file ref="upload" :upload="{}" @successUpload="successUpload"></up-file>
         <el-button @click="upImg">上传图片</el-button>
+
         <div class="upload-view">
             <div class="upload-view-contain">
                 <div class="upload-view-item" v-for="(item,index) in  data.content" :key="index">
@@ -26,6 +31,8 @@ module.exports = {
   data() {
     return {
       loading: false,
+      url:"https://www.baidu.com",
+      type:'',
       data: {
         id: 0,
         title: "",
@@ -74,7 +81,9 @@ module.exports = {
       let d = [];
       this.data.content.forEach(item => {
         d.push({
-          imgsrc: item.src
+          imgsrc: item.src,
+          url:item.url,
+          type:item.type
         });
       });
       let da = { a: JSON.stringify(d) };
@@ -123,7 +132,9 @@ module.exports = {
       this.data.pic = data.filename;
       this.data.content.push({
         id: "",
-        src: data.filename
+        src: data.filename,
+        url:this.url,
+        type:this.type
       });
     }
   },
