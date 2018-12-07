@@ -281,8 +281,6 @@ async function active(ctx) {
 //用户登录
 async function login(ctx) {
     const data = ctx.request.body;
-    console.log(11111111111111111111)
-    console.log(data);
     let msg;
     if (!common.name_reg.test(data.user_name)) {
         msg = common.name_txt;
@@ -860,10 +858,7 @@ async function uploadCarouselImg(ctx) {
     let err;
     let ds = JSON.parse(data.a);
     const connection = await mysql.createConnection(config.mysqlDB);
-    console.log('sddddddddddddsssssss');
-    console.log(ds);
     ds.forEach(async(x) => {
-        console.log(x);
         const [result] = await connection.execute('INSERT INTO `carouselimg` (imgsrc,url,type) VALUES (?,?,?)', [x.imgsrc, x.url, x.type]);
         err = result.affectedRows === 1 ? '' : '提交图片失败';
         if (result.affectedRows === 1) {
@@ -891,7 +886,6 @@ async function InsertEmitInfo(ctx) {
     ds.forEach(async(x) => {
 
         const [result] = await connection.execute('INSERT INTO `emitinfo` (emiteinfo) VALUES (?)', [x.info.toString()]);
-        console.log(result);
         err = result.affectedRows === 1 ? '' : '提交录取信息失败';
         if (result.affectedRows === 1) {
             ctx.body = {
@@ -972,7 +966,6 @@ async function UpdateCases(ctx) {
 }
 async function InsertShowCases(ctx) {
     const data = ctx.request.body;
-    console.log(data);
     let err;
     const connection = await mysql.createConnection(config.mysqlDB);
     const [result] = await connection.execute('INSERT INTO `showcases` (headimg,title,content) VALUES (?,?,?)', [data.pic, data.title, data.content]);
@@ -1008,16 +1001,9 @@ async function UpdateInterDynamicsReadtimes(ctx) {
     const connection = await mysql.createConnection(config.mysqlDB);
     const [list] = await connection.execute("select * from interdynamics where id=?", [id]);
     // (headimg,title,pbtime,pbauthor,readnums,content)
-    console.log('cccccccccc');
-    console.log(list);
-    console.log('bbb')
-    console.log(list[0].readnums);
-    console.log('aaa')
     var val = list[0].readnums;
     const [result] = await connection.execute('UPDATE `interdynamics` set readnums=? where id =?', [val + 1, id]);
     await connection.end();
-    console.log('dddddd')
-    console.log(result);
     return;
     err = result.affectedRows === 1 ? '' : '更新失败';
     if (result.affectedRows === 1) {
@@ -1064,10 +1050,6 @@ async function InsertInterDynamics(ctx) {
     let d = new Date();
     let create_time = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     const [result] = await connection.execute('INSERT INTO `interdynamics` (headimg,title,pbtime,pbauthor,readnums,content) VALUES (?,?,?,?,?,?)', [data.headpic, data.title, create_time, data.author, 0, data.content]);
-    console.log('12asdaaaaaa')
-    console.log(result);
-    console.log(result.affectedRows);
-    console.log(result.affectedRows === 1)
 
     err = result.affectedRows === 1 ? '发布成功' : '发布失败';
     if (result.affectedRows === 1) {
@@ -1111,7 +1093,7 @@ async function updateActiveSpecial(ctx) {
     const data = ctx.request.body;
     let err;
     const connection = await mysql.createConnection(config.mysqlDB);
-    const [result] = await connection.execute('UPDATE `activespecial` set  title = ?,content=? where id =?', [data.title, data.content, data.id]);
+    const [result] = await connection.execute('UPDATE `activespecial` set  title = ?,image=?,content=? where id =?', [data.title,data.pic, data.content, data.id]);
     err = result.affectedRows === 1 ? '' : '更新失败';
     if (result.affectedRows === 1) {
         ctx.body = {
@@ -1127,7 +1109,7 @@ async function InsertActiveSpecial(ctx) {
     console.log(data);
     let err;
     const connection = await mysql.createConnection(config.mysqlDB);
-    const [result] = await connection.execute('INSERT INTO `activespecial` (title,content) VALUES (?,?)', [data.title, data.content]);
+    const [result] = await connection.execute('INSERT INTO `activespecial` (title,image,content) VALUES (?,?,?)', [data.title,data.pic, data.content]);
     err = result.affectedRows === 1 ? '' : '发布失败';
     if (result.affectedRows === 1) {
         ctx.body = {
@@ -1147,10 +1129,8 @@ async function InsertActiveSpecial(ctx) {
 async function getSignUpInfo(ctx) {
 
     const data = ctx.request.body;
-    console.log('jjjjjjjjjjjjj')
     const connection = await mysql.createConnection(config.mysqlDB);
     const [list] = await connection.execute("SELECT * FROM signupinfo");
-    console.log(list);
     const success = list.length === 1;
     await connection.end();
     ctx.body = {
@@ -1162,12 +1142,9 @@ async function getSignUpInfo(ctx) {
 async function InsertSignUpInfo(ctx) {
     const data = ctx.request.body;
     let err;
-    console.log('eeeeeeeeeeeeeeee')
-    console.log(data);
     const connection = await mysql.createConnection(config.mysqlDB);
 
     const [result] = await connection.execute('INSERT INTO `signupinfo` (title,address,age,name,tel) VALUES (?,?,?,?,?)', [data.title, data.address, data.age, data.name, data.tel]);
-    console.log(result);
     err = result.affectedRows === 1 ? '' : '提交录取信息失败';
     if (result.affectedRows === 1) {
         ctx.body = {

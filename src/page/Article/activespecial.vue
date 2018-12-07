@@ -4,6 +4,11 @@
             <el-form-item label="标题" prop="title">
                 <el-input v-model="data.title"></el-input>
             </el-form-item>
+             <el-form-item label="图片" prop="pic">
+                <el-input v-model="data.pic"></el-input>
+                <up-file ref="upload" :upload="{}" @successUpload="successUpload"></up-file>
+                <el-button @click="upImg" :disabled="grade.upFile">上传图片</el-button>
+            </el-form-item>
             <el-form-item label="内容" prop="content">
                 <VueEditor :content="data.content" :height="250" :auto-height="false" @change="changeContent"></VueEditor>
             </el-form-item>
@@ -16,11 +21,11 @@
             <el-table :data="tableData" border style="width: 100%">
                 <el-table-column fixed prop="title" label="标题" width="320">
                 </el-table-column>
-                <!-- <el-table-column prop="imgsrc" label="头像" width="120">
+                <el-table-column prop="imgsrc" label="图片" width="120">
                     <template slot-scope="scope">
                         <img :src="scope.row.imgsrc" alt="" style="width: 50px;height: 50px">
                     </template>
-                </el-table-column> -->
+                </el-table-column>
                 <el-table-column prop="content" label="内容">
                 </el-table-column>
                 <el-table-column label="操作" width="100">
@@ -77,7 +82,7 @@ module.exports = {
         ],
         pic: {
           required: true,
-          message: "头像比传"
+          message: "图片必传"
         },
         content: {
           required: true,
@@ -150,10 +155,11 @@ module.exports = {
     getCasesList() {
       ajax.call(this, "/getActiveSpecialList", {}, (data, err) => {
         if (data.length > 0) {
+          debugger
           this.tableData = data.map(item => ({
             id: item.id,
             title: item.title,
-            // imgsrc: item.headimg,
+            imgsrc: item.image,
             content: item.content
           }));
         }
@@ -166,9 +172,9 @@ module.exports = {
       this.data.content = v;
       this.$refs.form.validateField("content");
     },
-    // upImg() {
-    //   this.$refs.upload.SelectFile();
-    // },
+    upImg() {
+      this.$refs.upload.SelectFile();
+    },
     backList() {
       this.$router.push("/article/list");
     },
